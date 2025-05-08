@@ -1,0 +1,68 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Bank Payment Routing API",
+    "description": "API for finding the cheapest path between banks for processing payments",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/payment/cheapest-path": {
+      "get": {
+        "summary": "Find the cheapest path between banks",
+        "parameters": [
+          {
+            "name": "start",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["Client", "BNP", "ING", "Lloyds", "SMBC", "KBC", "DEUT", "CITI", "HSBC", "BOFA"]
+            }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["Client", "BNP", "ING", "Lloyds", "SMBC", "KBC", "DEUT", "CITI", "HSBC", "BOFA"]
+            }
+          },
+          {
+            "name": "currency",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["EUR", "USD"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A JSON object containing the path and total cost",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "path": {
+                      "type": "string"
+                    },
+                    "cost": {
+                      "type": "number"
+                    },
+                    "currency": {
+                      "type": "string",
+                      "enum": ["EUR", "USD"]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
